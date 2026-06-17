@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "ENABLE_TOOL_SEARCH": "true",
+    "CLAUDE_CODE_NEW_INIT": "1"
+  },
+  "permissions": {
+    "deny": [
+      "Read(.env*)",
+      "Edit(.env*)",
+      "Bash(cat .env*)",
+      "Bash(head .env*)",
+      "Bash(tail .env*)",
+      "Bash(less .env*)",
+      "Bash(more .env*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/fallow-gate.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // empty'); case \"$f\" in */agent/*.ts|*/evals/*.ts) ;; *) exit 0 ;; esac; [ -f \"$f\" ] || exit 0; m=\"\"; grep -Eq 'from .\\.\\.?/' \"$f\" && m=\"${m}relative import (use # alias); \"; grep -Eq '(^|[[:space:]])interface[[:space:]]' \"$f\" && m=\"${m}interface (use type); \"; [ -n \"$m\" ] && { echo \"rule violation: ${m}in $f\" >&2; exit 2; }; exit 0"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "ecc@ecc": true
+  }
+}

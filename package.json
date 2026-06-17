@@ -10,22 +10,37 @@
     "build": "eve build",
     "dev": "eve dev",
     "start": "eve start",
-    "typecheck": "tsgo"
+    "eval": "eve eval",
+    "typecheck": "tsgo",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "check": "tsgo && oxlint && oxfmt --check",
+    "fix": "oxlint --fix && oxfmt",
+    "fallow": "fallow",
+    "fallow:audit": "fallow audit",
+    "fallow:dead-code": "fallow dead-code",
+    "fallow:fix": "fallow fix",
+    "fallow:health": "fallow health"
   },
   "dependencies": {
+    "@valibot/to-json-schema": "^1.7.1",
     "@vercel/connect": "0.2.2",
     "ai": "7.0.0-beta.178",
+    "better-result": "^2.9.2",
     "eve": "^0.11.4",
-    "zod": "4.4.3"
+    "valibot": "^1.4.1"
   },
   "devDependencies": {
     "@types/node": "24.x",
-    "@typescript/native-preview": "7.0.0-dev.20260523.1"
-  },
-  "overrides": {
-    "ai": "7.0.0-beta.178"
+    "@typescript/native-preview": "7.0.0-dev.20260523.1",
+    "fallow": "^2.98.0",
+    "oxfmt": "^0.55.0",
+    "oxlint": "^1.70.0"
   },
   "resolutions": {
+    "ai": "7.0.0-beta.178"
+  },
+  "overrides": {
     "ai": "7.0.0-beta.178"
   },
   "engines": {
