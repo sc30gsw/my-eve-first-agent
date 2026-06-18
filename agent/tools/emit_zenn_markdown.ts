@@ -52,10 +52,14 @@ export default defineTool({
   async execute(args, ctx) {
     const input = v.parse(EmitZennMarkdownInput, args);
     const path = `articles/${input.slug}.md`;
+    const markdown = renderZennMarkdown(input);
     const sandbox = await ctx.getSandbox();
 
-    await sandbox.writeTextFile({ path, content: renderZennMarkdown(input) });
+    await sandbox.writeTextFile({ path, content: markdown });
 
-    return { ok: true as const, path };
+    // Return the rendered markdown inline so the author can retrieve the article
+    // straight from the reply — on Vercel the sandbox workspace is ephemeral and
+    // is not readable from the host.
+    return { ok: true as const, path, markdown };
   },
 });

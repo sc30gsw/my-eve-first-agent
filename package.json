@@ -34,7 +34,6 @@
     "@types/node": "24.x",
     "@typescript/native-preview": "7.0.0-dev.20260523.1",
     "fallow": "^2.98.0",
-    "just-bash": "^3.0.1",
     "microsandbox": "^0.5.7",
     "oxfmt": "^0.55.0",
     "oxlint": "^1.70.0"

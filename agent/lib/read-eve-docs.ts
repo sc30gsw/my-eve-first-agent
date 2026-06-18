@@ -18,7 +18,7 @@ export async function executeReadEveDocs(args: unknown) {
 
   if (path === undefined) {
     const docs = await listEveDocs();
-    
+
     return { ok: true as const, docs };
   }
 
