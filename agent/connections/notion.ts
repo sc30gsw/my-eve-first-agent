@@ -6,7 +6,9 @@ import { defineMcpClientConnection } from "eve/connections";
 // its status. Auth runs through Vercel Connect; the connector was created with
 // `vercel connect create https://mcp.notion.com/mcp --name notion`, so its
 // connector UID is "mcp.notion.com/notion" (verified via `vercel connect list`).
-// The token is resolved per user/call and never reaches the model.
+// Connect-managed OAuth is user-scoped by default: the runtime resolves the
+// per-user token before each tool call and kicks off the sign-in flow on a cache
+// miss. Vercel Connect brokers the token; it never reaches the model.
 export default defineMcpClientConnection({
   url: "https://mcp.notion.com/mcp",
   description:
