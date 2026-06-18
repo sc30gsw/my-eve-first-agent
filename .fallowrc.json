@@ -8,6 +8,7 @@
     "agent/subagents/**/*.{ts,tsx}",
     "agent/schedules/**/*.{ts,tsx}",
     "agent/connections/**/*.{ts,tsx}",
+    "agent/sandbox/**/*.{ts,tsx}",
     "agent/instructions/**/*.{ts,tsx}",
     "evals/**/*.{ts,tsx}"
   ],

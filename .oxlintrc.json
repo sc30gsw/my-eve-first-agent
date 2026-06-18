@@ -19,6 +19,9 @@
         "agent/agent.ts",
         "agent/channels/**/*.ts",
         "agent/tools/**/*.ts",
+        "agent/connections/**/*.ts",
+        "agent/subagents/**/*.ts",
+        "agent/sandbox/**/*.ts",
         "evals/**/*.ts",
         "*.config.ts"
       ],
