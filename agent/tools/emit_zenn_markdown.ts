@@ -29,8 +29,9 @@ function renderZennMarkdown(input: EmitZennMarkdownInput) {
   return `${frontmatter}\n\n${input.body}\n`;
 }
 
-// Writes the finalized Zenn-format article into the sandbox workspace. Gated on
-// human approval because this is the publish boundary the author reviews first.
+// Writes the finalized Zenn-format article into the sandbox workspace at
+// /workspace/articles/<slug>.md. Gated on human approval because this is the
+// publish boundary the author reviews first.
 export default defineTool({
   description:
     "Write the finalized Zenn-format article (frontmatter + body) to the sandbox workspace as articles/<slug>.md. Requires human approval before it runs.",
