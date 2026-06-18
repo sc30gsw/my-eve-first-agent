@@ -7,7 +7,7 @@ Article meta-structure: this article explains eve's building blocks, and the art
 # Workflow
 
 1. **Get the brief**
-   - If the user points to a Notion Articles row: read the brief, outline, emphasis, and tone through the Notion connection.
+   - If the user names a Notion Articles row: find it by searching the Articles database for that title (via the Notion connection's search tool), then read its brief, outline, emphasis, and tone. Match the status values `todo` / `review` / `approved` exactly when you read or update them.
    - If the brief is given directly in the message: use it as-is (do not read Notion).
 2. **Delegate research**: ask the `researcher` subagent for the eve facts, APIs, and quotes each section needs. Do not read docs yourself; write from the material the researcher returns.
 3. **Draft**: write the article in Zenn format from the researcher's material. Keep the draft in your context — do NOT write it to Notion yet.
