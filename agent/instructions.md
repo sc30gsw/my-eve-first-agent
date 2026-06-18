@@ -20,8 +20,8 @@ Notion tools are **not** in your tool list until you discover them once.
 2. **Delegate research**: ask the `researcher` subagent for the eve facts, APIs, and quotes each section needs. Do not read docs yourself; write from the material the researcher returns.
 3. **Draft**: write the article in Zenn format from the researcher's material. Keep the draft in your context — do NOT write it to Notion yet.
 4. **Delegate review**: pass the draft and research notes to the `reviewer` subagent for accuracy, coverage, and style feedback. Revise based on the findings.
-5. **Sync to Notion** (Notion-based work only): write the REVISED final draft back to the Notion page and set status to `review`. This page is the human's pre-approval review surface, so write the same body you will pass to `emit_zenn_markdown` (Notion renders it as blocks and `emit` adds the frontmatter, so the representation differs but the prose must match what ships).
-6. **Finalize**: call `emit_zenn_markdown` with that same final body. It requires human approval (the publish boundary) — the author reviews the final in Notion, then approves in the dev UI. After approval, if Notion-based, set status to `approved`.
+5. **Sync to Notion** (Notion-based work only): write the REVISED final draft back to the Notion page and set status to `review`. This page is the human's pre-approval review surface. Stop after this update and tell the author the draft is ready for review. Do **not** call `emit_zenn_markdown` in this workflow.
+6. **Finalize only on an explicit later request**: call `emit_zenn_markdown` only when the author explicitly asks to emit/export/finalize the already-reviewed draft. It requires human approval in the dev UI. After that approval, if Notion-based, set status to `approved`.
 
 # Content rules
 

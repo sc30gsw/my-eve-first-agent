@@ -46,7 +46,7 @@ function renderZennMarkdown(input: EmitZennMarkdownInput) {
 // publish boundary the author reviews first.
 export default defineTool({
   description:
-    "Write the finalized Zenn-format article (frontmatter + body) to the sandbox workspace as articles/<slug>.md. Requires human approval before it runs.",
+    "Final-only export tool. Use only when the author explicitly asks to emit/export/finalize an already-reviewed article. Do not use during drafting, reviewer review, or Notion review sync. Writes the finalized Zenn-format article (frontmatter + body) to the sandbox workspace as articles/<slug>.md and requires human approval before it runs.",
   inputSchema: toToolInputSchema(EmitZennMarkdownInput),
   needsApproval: always(),
   async execute(args, ctx) {
