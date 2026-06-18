@@ -7,7 +7,7 @@ import { listEveDocs, readEveDoc } from "#lib/eve-docs.js";
 // defineTool file — but the schema, description, and handler live here once and
 // the per-subagent files are thin wrappers around them.
 export const READ_EVE_DOCS_DESCRIPTION =
-  "Read eve's local documentation. Omit `path` to list every available doc; pass a listed path to read that file's full contents.";
+  'Read eve\'s local documentation. Omit `path` or pass `path: ""` to list every available doc; pass a listed path to read that file\'s full contents.';
 
 export const ReadEveDocsInput = v.object({
   path: v.optional(v.string()),
@@ -16,7 +16,7 @@ export const ReadEveDocsInput = v.object({
 export async function executeReadEveDocs(args: unknown) {
   const { path } = v.parse(ReadEveDocsInput, args);
 
-  if (path === undefined) {
+  if (path === undefined || path.trim() === "") {
     const docs = await listEveDocs();
 
     return { ok: true as const, docs };
