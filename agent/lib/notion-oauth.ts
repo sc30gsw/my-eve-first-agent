@@ -99,7 +99,7 @@ function requestToken(form: Record<string, string>) {
       if (!response.ok) {
         throw new Error(`token endpoint responded ${response.status}: ${await response.text()}`);
       }
-      
+
       return v.parse(TokenResponseSchema, await response.json());
     },
   });

@@ -110,7 +110,7 @@ function authorizationCodeFromCallback(
 
   const code = params.code;
 
-  if (code === undefined || code.length === 0) {
+  if (!code) {
     throw new ConnectionAuthorizationFailedError(CONNECTION_NAME, {
       message: "authorization callback did not include a code",
       retryable: false,
@@ -147,7 +147,7 @@ export default defineMcpClientConnection({
       if (stillFresh) {
         return { expiresAt: record.expiresAt, token: record.accessToken };
       }
-      
+
       return await refreshOrRequire(record, cacheKey);
     },
     async startAuthorization({ callbackUrl }) {
@@ -188,7 +188,7 @@ export default defineMcpClientConnection({
 
       const record = toTokenRecord(exchanged.value, resume.clientId);
       await writeTokenRecord(principalCacheKey(principal), record);
-      
+
       return { expiresAt: record.expiresAt, token: record.accessToken };
     },
   }),
