@@ -26,9 +26,11 @@ async function walk(dir: string): Promise<string[]> {
       if (entry.isDirectory()) {
         return walk(full);
       }
+
       if (entry.name.endsWith(".md") || entry.name.endsWith(".mdx")) {
         return [full];
       }
+
       return [];
     }),
   );
@@ -37,6 +39,7 @@ async function walk(dir: string): Promise<string[]> {
 
 export async function listEveDocs() {
   const perRoot = await Promise.all(DOC_ROOT_PATHS.map((root) => walk(root)));
+
   return perRoot.flat().map((path) => relative(process.cwd(), path));
 }
 
@@ -45,11 +48,13 @@ export async function readEveDoc(path: string) {
   const within = DOC_ROOT_PATHS.some(
     (root) => candidate === root || candidate.startsWith(`${root}${sep}`),
   );
+
   if (!within) {
     return Result.err(
       new DocReadError({ message: `path is outside the eve docs roots: ${path}`, path }),
     );
   }
+
   return Result.tryPromise({
     try: () => readFile(candidate, "utf8"),
     catch: (cause) => new DocReadError({ cause, message: `failed to read eve doc: ${path}`, path }),

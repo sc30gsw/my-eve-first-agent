@@ -7,7 +7,7 @@ const operatorUser = {
   issuer: "tui-operator",
   principalId: "operator",
   principalType: "user",
-} as const;
+} as const satisfies Record<string, string | {}>;
 
 // User-scoped connection OAuth (Notion MCP) requires a `principalType: "user"`.
 // This agent is single-operator: trusted local/dev callers share one stable
@@ -15,7 +15,11 @@ const operatorUser = {
 function operatorAuth(): AuthFn<Request> {
   return async (request) => {
     const result = await verifyVercelOidc(extractBearerToken(request.headers.get("authorization")));
-    if (!result.ok) return null;
+
+    if (!result.ok) {
+      return null;
+    }
+
     return { ...operatorUser, authenticator: "oidc" };
   };
 }
@@ -25,6 +29,7 @@ function localOperatorAuth(): AuthFn<Request> {
 
   return async (request) => {
     const localAuth = await allowLocalDev(request);
+
     return localAuth === null || localAuth === undefined ? null : operatorUser;
   };
 }
