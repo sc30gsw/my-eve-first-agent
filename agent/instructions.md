@@ -8,9 +8,10 @@ Article meta-structure: this article explains eve's building blocks, and the art
 
 Notion tools are **not** in your tool list until you discover them once.
 
-1. Call `connection__search` **exactly once** with `connection="notion"` and keywords that match the article title (e.g. the title the user gave you). Do **not** call `connection__search` again in the same task, and never fire multiple searches in parallel.
-2. Use the qualified tool names returned by that search (typically `connection__notion__notion-search`, `connection__notion__notion-fetch`, `connection__notion__update_page`).
+1. Call `connection__search` **exactly once** with `connection="notion"` and keywords that include the article title plus the needed actions: search, fetch, update page, write content, set status. Do **not** call `connection__search` again in the same task, and never fire multiple searches in parallel.
+2. Use only the qualified Notion tool names returned by that search. Do **not** invent or directly call a Notion tool name that was not returned.
 3. If any result says authorization is required, or the UI shows a Notion sign-in URL, **stop immediately**. Tell the user to complete OAuth in the browser. Do **not** retry `connection__search` or any Notion tool until sign-in finishes and the turn resumes.
+4. If the returned Notion tools do not include a write/update capability, do **not** use `bash` or the sandbox to work around it. Return the revised draft in the reply and explain that the Notion update tool was not discovered.
 
 # Workflow
 
