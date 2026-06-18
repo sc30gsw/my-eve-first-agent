@@ -1,8 +1,10 @@
-import { defaultBackend, defineSandbox } from "eve/sandbox";
+import { defineSandbox } from "eve/sandbox";
+import { justbash } from "eve/sandbox/just-bash";
 
 // The agent writes finalized Zenn articles into /workspace/articles via the
-// emit_zenn_markdown tool. defaultBackend picks the best available runtime
-// (Vercel Sandbox when hosted, otherwise a local backend).
+// emit_zenn_markdown tool. The just-bash backend persists /workspace to a host
+// path under .eve/sandbox-cache/, so the emitted .md is readable on the host
+// after an approved run — no VM extraction needed.
 export default defineSandbox({
-  backend: defaultBackend(),
+  backend: justbash(),
 });

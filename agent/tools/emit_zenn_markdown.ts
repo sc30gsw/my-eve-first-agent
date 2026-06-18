@@ -4,7 +4,13 @@ import * as v from "valibot";
 import { toToolInputSchema } from "#lib/schema.js";
 
 const EmitZennMarkdownInput = v.object({
-  slug: v.pipe(v.string(), v.minLength(1, "slug is required")),
+  // Constrained to safe filename characters so the slug cannot traverse out of
+  // the articles/ directory when interpolated into the sandbox write path.
+  slug: v.pipe(
+    v.string(),
+    v.minLength(1, "slug is required"),
+    v.regex(/^[a-z0-9_-]+$/, "slug must be lowercase letters, digits, hyphen, or underscore"),
+  ),
   title: v.pipe(v.string(), v.minLength(1, "title is required")),
   emoji: v.optional(v.string(), "📝"),
   topics: v.array(v.string()),
@@ -13,13 +19,19 @@ const EmitZennMarkdownInput = v.object({
 
 type EmitZennMarkdownInput = v.InferOutput<typeof EmitZennMarkdownInput>;
 
+// JSON strings are valid YAML double-quoted scalars, so this escapes quotes,
+// newlines, and backslashes uniformly and prevents frontmatter injection (e.g.
+// a title/topic/emoji that tries to smuggle in `published: true`).
+function yamlString(value: string) {
+  return JSON.stringify(value);
+}
+
 function renderZennMarkdown(input: EmitZennMarkdownInput) {
-  const title = input.title.replaceAll('"', '\\"');
-  const topics = input.topics.map((topic) => `"${topic}"`).join(", ");
+  const topics = input.topics.map((topic) => yamlString(topic)).join(", ");
   const frontmatter = [
     "---",
-    `title: "${title}"`,
-    `emoji: "${input.emoji}"`,
+    `title: ${yamlString(input.title)}`,
+    `emoji: ${yamlString(input.emoji)}`,
     'type: "tech"',
     `topics: [${topics}]`,
     "published: false",
