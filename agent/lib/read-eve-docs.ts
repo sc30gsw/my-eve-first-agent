@@ -19,6 +19,15 @@ export async function executeReadEveDocs(args: unknown) {
   if (path === undefined || path.trim() === "") {
     const docs = await listEveDocs();
 
+    if (docs.length === 0) {
+      return {
+        ok: false as const,
+        docs,
+        message:
+          "No local eve docs were found. Do not use web_fetch as a fallback; ask the parent to soften unsupported eve-specific claims.",
+      };
+    }
+
     return { ok: true as const, docs };
   }
 
