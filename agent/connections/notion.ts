@@ -132,7 +132,6 @@ export default defineMcpClientConnection({
   description:
     "Notion workspace. Read the article brief and outline from the Articles database, write the draft back to the article page, and update its status (todo, review, approved).",
   auth: defineInteractiveAuthorization<NotionResume>({
-    displayName: "Notion",
     async getToken({ principal }) {
       const cacheKey = principalCacheKey(principal);
       const record = await readTokenRecord(cacheKey);
