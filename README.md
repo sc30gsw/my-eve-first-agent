@@ -23,18 +23,18 @@ Notion の brief（記事タイトルで検索して取得）
 
 ### 実演する eve の構成部品
 
-| slot | 役割 | model |
-| --- | --- | --- |
-| `agent/agent.ts` | ランタイム / モデル設定 | `anthropic/claude-haiku-4.5` |
-| `agent/instructions.md` | ライター人格・ワークフロー | — |
-| `agent/tools/emit_zenn_markdown.ts` | Zenn 形式 `.md` を sandbox に出力（承認 gate） | — |
-| `agent/skills/` | 記事構成スキル + Zenn 文体スキル | — |
-| `agent/connections/notion.ts` | Notion（MCP）= brief 読み・下書き書き戻し・status 管理 | — |
-| `agent/subagents/researcher/` | eve docs を調査し fact/引用を返す | `anthropic/claude-haiku-4.5` |
-| `agent/subagents/reviewer/` | 下書きの正確性・文体をチェック | `anthropic/claude-haiku-4.5` |
-| `agent/sandbox/` | `emit_zenn_markdown` の出力先ワークスペース | — |
-| `agent/channels/eve.ts` | デフォルト HTTP / dev 端末 | — |
-| `evals/article/intro.eval.ts` | 承認前の smoke eval | — |
+| slot                                | 役割                                                   | model                        |
+| ----------------------------------- | ------------------------------------------------------ | ---------------------------- |
+| `agent/agent.ts`                    | ランタイム / モデル設定                                | `anthropic/claude-haiku-4.5` |
+| `agent/instructions.md`             | ライター人格・ワークフロー                             | —                            |
+| `agent/tools/emit_zenn_markdown.ts` | Zenn 形式 `.md` を sandbox に出力（承認 gate）         | —                            |
+| `agent/skills/`                     | 記事構成スキル + Zenn 文体スキル                       | —                            |
+| `agent/connections/notion.ts`       | Notion（MCP）= brief 読み・下書き書き戻し・status 管理 | —                            |
+| `agent/subagents/researcher/`       | eve docs を調査し fact/引用を返す                      | `anthropic/claude-haiku-4.5` |
+| `agent/subagents/reviewer/`         | 下書きの正確性・文体をチェック                         | `anthropic/claude-haiku-4.5` |
+| `agent/sandbox/`                    | `emit_zenn_markdown` の出力先ワークスペース            | —                            |
+| `agent/channels/eve.ts`             | デフォルト HTTP / dev 端末                             | —                            |
+| `evals/article/intro.eval.ts`       | 承認前の smoke eval                                    | —                            |
 
 `hooks` と `schedules` は記事内で**解説のみ**（このエージェントには実装していません）。
 
@@ -100,14 +100,14 @@ brief をメッセージに直接書けば Notion なしでも動きます（eva
 
 ## 開発コマンド
 
-| コマンド | 内容 |
-| --- | --- |
-| `pnpm dev` | dev サーバ + 端末 UI |
-| `pnpm build` | `.eve/` 成果物のビルド |
-| `pnpm eval` | eval 実行（`pnpm eval article` で個別） |
-| `pnpm check` | tsgo + oxlint + oxfmt --check |
-| `pnpm fix` | oxlint --fix + oxfmt |
-| `pnpm fallow:audit` | 変更コードの health gate |
+| コマンド            | 内容                                    |
+| ------------------- | --------------------------------------- |
+| `pnpm dev`          | dev サーバ + 端末 UI                    |
+| `pnpm build`        | `.eve/` 成果物のビルド                  |
+| `pnpm eval`         | eval 実行（`pnpm eval article` で個別） |
+| `pnpm check`        | tsgo + oxlint + oxfmt --check           |
+| `pnpm fix`          | oxlint --fix + oxfmt                    |
+| `pnpm fallow:audit` | 変更コードの health gate                |
 
 型チェックは **tsgo**（`tsc` は使いません）。詳細は [AGENTS.md](AGENTS.md) を参照。
 
